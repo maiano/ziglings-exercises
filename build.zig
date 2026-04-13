@@ -1347,7 +1347,7 @@ const exercises = [_]Exercise{
         \\Max difference (new fn): 0.014
         , // pay attention to the comma
     },
-    .{ .main_file = "113_quiz9.zig", .output = 
+    .{ .main_file = "113_quiz9.zig", .output =
     \\Toggle pins with XOR on PORTB
     \\-----------------------------
     \\  1100 // (initial state of PORTB)
@@ -1391,34 +1391,34 @@ const exercises = [_]Exercise{
         .output = "Allocated 64 bytes safely with GPA. First byte is 0xaa",
         .hint = "Create a DebugAllocator with .safety = true, free the slice, and defer gpa.deinit()",
     },
-    .{
-        .main_file = "117_arena_allocator.zig",
-        .output = "Zig is awesome for systems programming!",
-        .hint = "Use ArenaAllocator and dupe the three strings",
-    },
-    .{
-        .main_file = "118_manual_memory.zig",
-        .output = "Successfully allocated and will free one full memory page.",
-        .hint = "Use page_allocator, alloc 4096 bytes, and free it with defer",
-    },
-    .{
-        .main_file = "119_simple_lexer.zig",
-        .output = "Token: number 42\nToken: plus\nToken: number 1337",
-        .hint = "Loop through the string and detect digits or '+'",
-    },
-    .{
-        .main_file = "120_simple_parser.zig",
-        .output = "Result: 1379",
-        .hint = "Parse the two numbers and add them together",
-    },
-    .{
-        .main_file = "121_quiz10.zig",
-        .output =
-        \\--- Alien Cargo Manifest ---
-        \\Total alien cargo: 1389 items
-        , // pay attention to the comma
-        .hint = "Initialize the GPA and Arena, keep 'i' in bounds, and use dupe()!",
-    },
+    // .{
+    //     .main_file = "117_arena_allocator.zig",
+    //     .output = "Zig is awesome for systems programming!",
+    //     .hint = "Use ArenaAllocator and dupe the three strings",
+    // },
+    // .{
+    //     .main_file = "118_manual_memory.zig",
+    //     .output = "Successfully allocated and will free one full memory page.",
+    //     .hint = "Use page_allocator, alloc 4096 bytes, and free it with defer",
+    // },
+    // .{
+    //     .main_file = "119_simple_lexer.zig",
+    //     .output = "Token: number 42\nToken: plus\nToken: number 1337",
+    //     .hint = "Loop through the string and detect digits or '+'",
+    // },
+    // .{
+    //     .main_file = "120_simple_parser.zig",
+    //     .output = "Result: 1379",
+    //     .hint = "Parse the two numbers and add them together",
+    // },
+    // .{
+    //     .main_file = "121_quiz10.zig",
+    //     .output =
+    //     \\--- Alien Cargo Manifest ---
+    //     \\Total alien cargo: 1389 items
+    //     , // pay attention to the comma
+    //     .hint = "Initialize the GPA and Arena, keep 'i' in bounds, and use dupe()!",
+    // },
     .{
         .main_file = "999_the_end.zig",
         .output =

@@ -1,60 +1,89 @@
 //
-// GeneralPurposeAllocator was renamed in Zig 0.16 to DebugAllocator.
-// It is one of the most important tools for real system programming
-// and deep memory management.
+// Do you know what the real system programming,
+// Actual memory management projects/programms use which tool?
+// Its DebugAllocator previusly its known as GeneralPurposeAllocator in Zig,
+// The rename was happened in 0.16.0-dev version. As you know
 //
-// Unlike page_allocator (which gives you raw OS pages directly), the
-// DebugAllocator adds safety checks, leak detection, double-free
-// protection, and even stack traces when something goes wrong.
+// We can use page_allocator but we are using DebugAllocator because it adds safety checks,
+// leak detection, double-free protection and even stack traces when something goes wrong.
 //
-// It is specifically designed for safety and development rather than
-// pure performance. While it is slower than page_allocator or
-// c_allocator, while you are developing it is your absolute best
-// friend — it will literally scream at you if you forget to free memory!
+// Its specially designed for safety and devlopment rather than for performance.
+// Also its true that DebugAllocator is slower than page_allocator or
+// c_allocator, while you are developing it is your real best friend.
+// DebugAllocator will literally scream at you if you forgot to free the occupied memory.
 //
-// Let's create our first DebugAllocator and manage a small slice of memory.
+// Do you remember the Memory Allocation exercise we did in 099_memory_allocation.zig
 //
-// In newer versions of Zig, the default initialization pattern `.{}` for
-// the DebugAllocator is deprecated. Instead, you should use `.init`.
+// We used the Arena allocator for simple
+// programs which allocate once and then exit:
+//
+//     const std = @import("std");
+//
+//     // memory allocation can fail, so the return type is !void
+//     pub fn main() !void {
+//
+//         var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+//         defer arena.deinit();
+//
+//         const allocator = arena.allocator();
+//
+//         const ptr = try allocator.create(i32);
+//         std.debug.print("ptr={*}\n", .{ptr});
+//
+//         const slice_ptr = try allocator.alloc(f64, 5);
+//         std.debug.print("slice_ptr={*}\n", .{slice_ptr});
+//     }
+// But this time we will use DebugAllocator which is similir when we used
+// ArenaAllocator, but insted of ArenaAllocator we will use DebugAllocator here is an example:
+//
+//     const std = @import("std");
+//
+//     // memory allocation can fail, so the return type is !void
+//     pub fn main() !void {
+//
+//         var debug_allocator = std.heap.DebugAllocator(.{ .safety = true }).init;
+//                       --> did you see we used `.init` instead of `.{}`—————^^^^
+//                       --> becuase `.{}` which is default for DebugAllocator is deprecated.
+//         defer _ = debug_allocator.deinit();
+//
+//         const allocator = debug_allocator.allocator();
+//
+//         ... mostly as arenaallocator style.
+//     }
+//
+// Let's create our first DebugAllocator and manage a slice of memory.
 //
 const std = @import("std");
+const print = std.debug.print;
 
 pub fn main() !void {
-    // We instantiate a DebugAllocator. We can configure it by passing a
-    // configuration struct. Here, we'll explicitly turn safety on.
-    //
-    // TODO: Create a DebugAllocator with safety checks turned on.
-    // Replace `???` with `std.heap.DebugAllocator(.{ .safety = true }).init`.
-    var gpa = ???;
+    // We can init DebugAllocator by passing a configuration struct.
+    var gpa = ???; // What's missing here, if you wonder so explore!
 
-    // When the program finishes (or if it returns early due to an error),
+    // As we all know when a program finishes (or if it returns early due to an error),
     // we want to make sure the allocator cleans up and checks for leaks.
-    // `gpa.deinit()` returns an enum indicating whether any memory was leaked.
-    // We can assign it to `_` to safely ignore the enum result in this simple
-    // example, but the allocator will still print leaks to the standard error!
-    //
-    // TODO: Deinitialize the allocator at the end of the scope using `defer`.
-    // Replace `???` with `_ = gpa.deinit()`.
+    // So what we need to do below?
     defer ???;
 
-    // To actually allocate memory, we need to get the generic `std.mem.Allocator`
+    // TO actually allocate memory, we need to get the generic `std.mem.Allocator`
     // interface from our DebugAllocator. This is what we pass to functions.
     const allocator = gpa.allocator();
 
     // Now let's allocate 64 bytes of memory!
-    const slice = try allocator.alloc(u8, 64);
+    const slice = ??? allocator.???(u8, ???); // Here 3 things missing do it wisely.
 
     // We can write to our newly allocated memory.
-    @memset(slice, 0xaa);
+    @memset(slice, 0xaa); // here `0xaa` is used and if you forgot about it see some exercises backword.
 
-    // This matches the expected output from build.zig!
-    std.debug.print("Allocated 64 bytes safely with GPA. First byte is 0x{x}\n", .{slice[0]});
+    // Now we will print the first byte.
+    print("Allocated 64 bytes safely with GPA. First byte is 0x{x}\n", .{slice[???]});
 
     // We must remember to free the memory we allocated!
     // If you forget this, DebugAllocator will report a memory leak when
     // deinit() is called at the end of the program!
-    //
-    // TODO: Free the slice using `allocator.free()`.
-    // Replace `???` with `allocator.free(slice)`.
-    ???;
+    ???; // think about it, what to use?
 }
+// Upcoming Exercises will be exiting and also if found this exercise easy,
+// So you might be comfortable with the memory and allocators.
+// If you found this hard so don't worry just redo entire ziglings from scrath,
+// Remember: Try and try until success!
