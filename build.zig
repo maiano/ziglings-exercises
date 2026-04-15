@@ -1391,11 +1391,11 @@ const exercises = [_]Exercise{
         .output = "Allocated 64 bytes safely with GPA. First byte is 0xaa",
         .hint = "Create a DebugAllocator with .safety = true, free the slice, and defer gpa.deinit()",
     },
-    // .{
-    //     .main_file = "117_arena_allocator.zig",
-    //     .output = "Zig is awesome for systems programming!",
-    //     .hint = "Use ArenaAllocator and dupe the three strings",
-    // },
+    .{
+        .main_file = "117_arena_allocator.zig",
+        .output = "Zig is awesome for systems programming!",
+        .hint = "Use ArenaAllocator and dupe the three strings",
+    },
     // .{
     //     .main_file = "118_manual_memory.zig",
     //     .output = "Successfully allocated and will free one full memory page.",
