@@ -50,6 +50,14 @@
 //
 //         ... mostly as arenaallocator style.
 //     }
+// 
+// Every DebugAllocator has three phases:
+// 1. Initialization (init)
+// 2. Use
+// 3. Deinitialization (deinit)
+// You must pair init and deinit, if you don't they cause the memory leak.
+// Also we use defer to make this entire process automatic. It runs deinit when the scope exists.
+// Even if function fails so it returns error earlier. This is zig's patterns for guaranteed cleanup.
 //
 // Let's create our first DebugAllocator and manage a slice of memory.
 //
@@ -82,8 +90,18 @@ pub fn main() !void {
     // If you forget this, DebugAllocator will report a memory leak when
     // deinit() is called at the end of the program!
     ???; // think about it, what to use?
+
+    // A common mistake is to try to use the memory after freeing it, which is called a "use-after-free" bug.
+    // Did you know? deinit() does justnot clean up the memory, it also returns either `.ok` or `.leak`. 
+    // you can also use `_ = ` to ignore the return value if you don't care about it or do if-else to handle it.
 }
+
 // Upcoming Exercises will be exiting and also if found this exercise easy,
 // So you might be comfortable with the memory and allocators.
 // If you found this hard so don't worry just redo entire ziglings from scrath,
 // Remember: Try and try until success!
+
+// Additional Info: Why 0xaa? It is 10101010 in binary, a very recognizable pattern.
+// debuggers and tools have used this for decades as a "poisoned" fill.
+// If you ever see 0xaa in memory you were not supposed to touch it,
+// you know immediately something went wrong. It is not magic, just smart.
