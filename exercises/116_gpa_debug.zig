@@ -101,6 +101,7 @@ pub fn main() !void {
 // If you found this hard so don't worry just redo entire ziglings from scrath,
 // Remember: Try and try until success!
 
+// If you are lazzy to find previous exercises when we used binaries so here is an addition info.
 // Additional Info: Why 0xaa? It is 10101010 in binary, a very recognizable pattern.
 // debuggers and tools have used this for decades as a "poisoned" fill.
 // If you ever see 0xaa in memory you were not supposed to touch it,

@@ -74,7 +74,7 @@ pub fn main() !void {
     print("Successfully allocated and will free one full memory page.\n", .{});
 }
 
-// Note: While war page allocation is powerful, remember that it's usually
+// Note: While raw page allocation is powerful, remember that it's usually
 // better to use either ArenaAllocator or DebugAllocator for most general usecases.
 // as they provide better safety guarantees!
 // If wonder about Allocator, so you will learn more about it very soon!
