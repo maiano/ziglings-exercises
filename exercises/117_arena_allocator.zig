@@ -23,6 +23,12 @@
 // Also, No individual free() calls are needed! which ArenaAllocator forgot to tell you.
 // This pattern is extremely comman and used everywhere in real system-level Zig programs.
 //
+// Quick note before we start:
+// allocator.alloc(T, n)       --> allocates n items of type T, you fill them yourself
+// allocator.dupe(T, slice)    --> allocates AND copies an existing slice for you
+// Both return a slice []T, both need try. In this exercise we use dupe()
+// because we already have string literals we want to copy into owned memory.
+//
 // Let's see what's left from ArenaAllocator via this exercise:
 //
 const std = @import("std");

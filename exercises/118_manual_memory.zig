@@ -23,6 +23,22 @@
 //
 // Exactly what page_allocator said, We previously used page_allocator
 // in ArenaAllocator and DebugAllocator.
+//
+// If you have these questions in your mind, so here are awnsers of them.
+//
+// What is a memory page?
+// --> Most OS does not give memory byte by byte, instead it gives memory in chunks called pages.
+// --> One page is usually 4096 bytes means 4KB which i mentioned above.
+// --> This is not a Zig thing, this is how
+// --> every modern OS and CPU manages memory at the hardware level.
+// --> When you ask page_Allocator for memory, so you are asking directly to OS for one or more of these pages.
+// --> Also, Nothing in between, no wrapper, just raw pages.
+//
+// Why would i ever want this?
+// --> Most of the time you would not, ArenaAllocator or DebugAllocator are better.
+// --> But sometimes you are writing something very low level like a custom allocator,
+// --> a memory pool, or a runtime, and you want to build your own system on top.
+// --> page_allocator is the foundation everything else sits on.
 // 
 // We will learn more about all allocators in future...
 // 
@@ -45,6 +61,9 @@ pub fn main() !void {
     // As always, we must ensure to free what we allocate.
     // Orelse the OS will reclaim it when program exits,
     // but in a long-running program, this would be catastrophic memory leak!
+    // it is your only safety net. DebugAllocator would warn you about a leak. 
+    // page_allocator will not say a word. It will just silently let the OS clean up
+    // when the program exits.
     defer ???;
 
     // Write a pattern at the start of the page so we can see it worked.
