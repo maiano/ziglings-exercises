@@ -1,3 +1,10 @@
+# ziglings-exercises — My Solutions
+
+> Original repository: [ziglings/exercises on Codeberg](https://codeberg.org/ziglings/exercises)
+
+This is my personal fork with solutions and notes. 
+Please refer to the original repo for the canonical exercises.
+
 # Ziglings
 
 Welcome to Ziglings! This project contains a series of tiny
